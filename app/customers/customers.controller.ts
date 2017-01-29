@@ -1,8 +1,9 @@
 
-module app.candidate {
+module app.customer {
     'use strict';
 
     export interface ICustomersController {
+        loadCustomers: models.ICustomerModel[];
 
     }
 
@@ -11,11 +12,11 @@ module app.candidate {
 
 
         customers: models.ICustomerModel[];
-        candidate: models.ICustomerModel = null;
+        customer: models.ICustomerModel = null;
+        loadCustomers(): models.ICustomerModel[];
 
 
-        constructor(private candidateService: services.ICandidateService,
-            private lookupService: services.ILookupService,
+        constructor(private customerService: services.ICustomerService,
             private $mdDialog: angular.material.IDialogService,
             private $rootScope: ng.IRootScopeService) {
             this.$rootScope = $rootScope;
@@ -24,9 +25,7 @@ module app.candidate {
         // initialization logic runs after bindings complete
         $onInit(): void {
             // load the current and electionCycle legislatures from lookupService
-            this.lookupService.getCurrentLegislature().then((result) => {
-                this.currentLegislature = result;
-                this.loadCandidates();
+            this.loadCustomers();
             }).catch(error => {
                 var dialogPreset: angular.material.IPresetDialog<angular.material.IAlertDialog> = this.$mdDialog.alert();
                 dialogPreset.theme("error");
@@ -38,18 +37,18 @@ module app.candidate {
         }
 
         // putting the actual load in its own method in case we want to launch with a "refresh" button
-        loadCandidates(): void {
-            this.candidateService.getCandidates(this.currentLegislature.electionCycleLegislature)
+        loadCustomers(): void {
+            this.CustomersService.getCustomers()
                 .then((result) => {
-                    this.candidates = result;
+                    this.customers = result;
                 });
         }
 
-        // load single candidate based upon selectedId from list
-        loadCandidate(candidateId: number): void {
-            this.candidateService.getCandidate(candidateId)
+        // load single customer based upon selectedId from list
+        loadCustomer(customerId: number): void {
+            this.customerService.getCandidate(customerId)
                 .then((result) => {
-                    this.candidate = result;
+                    this.customer = result;
                 }).catch(error => {
                     var dialogPreset: angular.material.IPresetDialog<angular.material.IAlertDialog> = this.$mdDialog.alert();
                     dialogPreset.theme("error");
@@ -60,21 +59,21 @@ module app.candidate {
                 });
         }
 
-        // save current candidate record
-        saveCandidate(candidate: models.CandidateModel): void {
+        // save current customer record
+        saveCandidate(customer: models.CandidateModel): void {
 
-            // prep candidate record for saving
+            // prep customer record for saving
             var addressHelper: common.helpers.AddressHelper.TheAddressHelper
                 = new common.helpers.AddressHelper.TheAddressHelper(null,
                     this.addressTypes,
                     null);
-            candidate.addressBook = addressHelper.formatPhoneFields(candidate.addressBook);
-            candidate.addressBook = addressHelper.removeAddressPlaceholderRecords(candidate.addressBook);
+            customer.addressBook = addressHelper.formatPhoneFields(customer.addressBook);
+            customer.addressBook = addressHelper.removeAddressPlaceholderRecords(customer.addressBook);
 
             // call service to save record
-            this.candidateService.saveCandidate(candidate).then((result) => {
-                // update detail region and reload list with new candidate
-                this.candidate = result;
+            this.customerService.saveCandidate(customer).then((result) => {
+                // update detail region and reload list with new customer
+                this.customer = result;
                 this.loadCandidates();
             }).catch(error => {
                 var dialogPreset: angular.material.IPresetDialog<angular.material.IAlertDialog> = this.$mdDialog.alert();
@@ -86,11 +85,11 @@ module app.candidate {
             });
         }
 
-        // delete currently displayed candidate
-        deleteCandidate(candidate: models.CandidateModel): void {
-            this.candidateService.deleteCandidate(candidate).then(() => {
-                // Clear deleted candidate and Reload candidate list
-                this.candidate = null;
+        // delete currently displayed customer
+        deleteCandidate(customer: models.CandidateModel): void {
+            this.customerService.deleteCandidate(customer).then(() => {
+                // Clear deleted customer and Reload customer list
+                this.customer = null;
                 this.loadCandidates();
             }).catch(error => {
                 var dialogPreset: angular.material.IPresetDialog<angular.material.IAlertDialog> = this.$mdDialog.alert();
@@ -108,11 +107,11 @@ module app.candidate {
         }
 
 
-        // link displayed candidate with member selected from dialog
-        linkToMember(candidate: models.CandidateModel, memberMciId: number): void {
-            this.candidateService.linkToMember(candidate, memberMciId)
+        // link displayed customer with member selected from dialog
+        linkToMember(customer: models.CandidateModel, memberMciId: number): void {
+            this.customerService.linkToMember(customer, memberMciId)
                 .then(() => {
-                    this.loadCandidate(candidate.id);
+                    this.loadCandidate(customer.id);
                 })
                 .catch(error => {
                     var dialogPreset:
@@ -127,6 +126,6 @@ module app.candidate {
     }
 
     angular
-        .module('app.candidate')
+        .module('app.customer')
         .controller('CandidateController', CandidateController);
 }

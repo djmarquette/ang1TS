@@ -1,3 +1,5 @@
+// app.ts
 
+import {module} from 'angular';
 
-var app = angular.module('app', ['ngMaterial']);
+var app = module('app', ['ngMaterial']);
