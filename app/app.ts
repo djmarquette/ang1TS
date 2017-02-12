@@ -1,13 +1,11 @@
 // app.ts
 
-import { module } from 'angular';
-// import {module} from 'angular';
-import * as route from 'angular-route';
+import * as  angular from 'angular';
+//import * as  route from 'angular-route';
 
-export var app = module('app',['ngRoute'])
-
+export var app = angular.module('app',['ngRoute'])
         .config(['$locationProvider', '$routeProvider',
-            ($locationProvider: ng.ILocationProvider, $routeProvider:route.$routeProvider) => {
+            ($locationProvider: ng.ILocationProvider, $routeProvider:any) => {
             $locationProvider.html5Mode(true);
             $routeProvider
                 .when('/', {
@@ -21,4 +19,3 @@ export var app = module('app',['ngRoute'])
                 })
                 .otherwise({ redirectTo: '/' });
         }]);
-

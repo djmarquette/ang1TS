@@ -17,6 +17,7 @@
     "gulp-cached": "^1.1.1",
     "gulp-tsc": "^1.2.6",
     "jquery": "^3.1.1",
+    "requirejs": "^2.3.2",
     "typescript": "^2.1.5",
     "typings": "^2.1.0"
   },
