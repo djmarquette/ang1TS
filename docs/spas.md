@@ -4,3 +4,5 @@ A single-page application (SPA) is a web application or web site that fits on a 
 * web site
 * application
 * dynamic
+
+[Why angular?](why_angular.md)
