@@ -8,7 +8,7 @@ AngularJS (commonly referred to as "Angular" or "Angular.js") is a complete Java
     * originally developed in 2009 by Miško Hevery
   * angular 2+
     * announced at the ng-Europe conference 22-23. September 2014
-  * current version is angular 4
+  * current version is angular 2.4.0
     * angular 3 was skipped to avoid a confusion with an NPM package distributed under the name
 
 
