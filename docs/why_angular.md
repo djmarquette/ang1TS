@@ -9,7 +9,7 @@ AngularJS (commonly referred to as "Angular" or "Angular.js") is a complete Java
   * angular 2+
     * announced at the ng-Europe conference 22-23. September 2014
   * current version is angular 2.4.0
-    * angular 3 was skipped to avoid a confusion with an NPM package distributed under the name
+    * angular 2.3.0 was skipped to avoid a confusion with an NPM package distributed under the name
 
 
 [Spas](spas.md)
